@@ -1,0 +1,6 @@
+framework module Pods_BoseAlbum {
+  umbrella header "Pods-BoseAlbum-umbrella.h"
+
+  export *
+  module * { export * }
+}
