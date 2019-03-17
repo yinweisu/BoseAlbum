@@ -42,6 +42,7 @@ def retrieve_albums():
     response = retrieve_user_albums(user_id)
 
     return json.dumps(response)
+    # return json.dumps({"album_count": "0", "albums":[]})
 
 @app.route('/createAlbum', methods = ['POST'])
 def create_album():

@@ -13,6 +13,8 @@
 		A4785474223DF2AE00F4B411 /* MyError.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4785473223DF2AE00F4B411 /* MyError.swift */; };
 		A478547A223E166900F4B411 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4785479223E166900F4B411 /* HomeViewController.swift */; };
 		A478547C223E187D00F4B411 /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A478547B223E187D00F4B411 /* PhotoCollectionViewCell.swift */; };
+		A478547E223EC27E00F4B411 /* GeneralResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = A478547D223EC27E00F4B411 /* GeneralResponse.swift */; };
+		A4785480223EC4D400F4B411 /* Albums.swift in Sources */ = {isa = PBXBuildFile; fileRef = A478547F223EC4D400F4B411 /* Albums.swift */; };
 		A4ABC3D6223CA2BB004F5906 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ABC3D5223CA2BB004F5906 /* AppDelegate.swift */; };
 		A4ABC3D8223CA2BB004F5906 /* StartViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4ABC3D7223CA2BB004F5906 /* StartViewController.swift */; };
 		A4ABC3DB223CA2BC004F5906 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = A4ABC3D9223CA2BC004F5906 /* Main.storyboard */; };
@@ -31,6 +33,8 @@
 		A4785473223DF2AE00F4B411 /* MyError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyError.swift; sourceTree = "<group>"; };
 		A4785479223E166900F4B411 /* HomeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		A478547B223E187D00F4B411 /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
+		A478547D223EC27E00F4B411 /* GeneralResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralResponse.swift; sourceTree = "<group>"; };
+		A478547F223EC4D400F4B411 /* Albums.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Albums.swift; sourceTree = "<group>"; };
 		A4ABC3D2223CA2BB004F5906 /* BoseAlbum.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BoseAlbum.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		A4ABC3D5223CA2BB004F5906 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		A4ABC3D7223CA2BB004F5906 /* StartViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartViewController.swift; sourceTree = "<group>"; };
@@ -88,6 +92,8 @@
 				A4785470223DD88700F4B411 /* User.swift */,
 				A4785473223DF2AE00F4B411 /* MyError.swift */,
 				A478547B223E187D00F4B411 /* PhotoCollectionViewCell.swift */,
+				A478547D223EC27E00F4B411 /* GeneralResponse.swift */,
+				A478547F223EC4D400F4B411 /* Albums.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -249,9 +255,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				A478546C223D7B2D00F4B411 /* LoginViewController.swift in Sources */,
+				A478547E223EC27E00F4B411 /* GeneralResponse.swift in Sources */,
 				A478547C223E187D00F4B411 /* PhotoCollectionViewCell.swift in Sources */,
 				A4ABC3D8223CA2BB004F5906 /* StartViewController.swift in Sources */,
 				A478546E223D7B3800F4B411 /* SignUpViewController.swift in Sources */,
+				A4785480223EC4D400F4B411 /* Albums.swift in Sources */,
 				A4785471223DD88700F4B411 /* User.swift in Sources */,
 				A4785474223DF2AE00F4B411 /* MyError.swift in Sources */,
 				A478547A223E166900F4B411 /* HomeViewController.swift in Sources */,
