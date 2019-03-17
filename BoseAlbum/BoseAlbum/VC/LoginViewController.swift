@@ -9,6 +9,9 @@
 import UIKit
 
 class LoginViewController: UIViewController {
+    
+    var user: User?
+    
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var errorLabel: UILabel!
@@ -23,6 +26,16 @@ class LoginViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == "segueFromLoginToHome"
+        {
+            let destinationNavigationController = segue.destination as! UINavigationController
+            let targetController = destinationNavigationController.topViewController as! HomeViewController
+            targetController.user = self.user!
+        }
     }
 
     @IBAction func loginPressed(_ sender: Any) {
@@ -42,6 +55,7 @@ class LoginViewController: UIViewController {
             if let data = data {
                 do {
                     let user = try JSONDecoder().decode(User.self, from: data)
+                    self.user = user
                     print(user)
                     OperationQueue.main.addOperation {
                         self.performSegue(withIdentifier: "segueFromLoginToHome", sender: self)

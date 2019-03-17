@@ -10,6 +10,8 @@ import UIKit
 
 class SignUpViewController: UIViewController {
 
+    var user: User?
+    
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
     @IBOutlet weak var confirmPasswordField: UITextField!
@@ -26,6 +28,16 @@ class SignUpViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == "segueFromSignToHome"
+        {
+            let destinationNavigationController = segue.destination as! UINavigationController
+            let targetController = destinationNavigationController.topViewController as! HomeViewController
+            targetController.user = self.user!
+        }
     }
     
     @IBAction func signUpPressed(_ sender: Any) {
@@ -49,6 +61,7 @@ class SignUpViewController: UIViewController {
                 if let data = data {
                     do {
                         let user = try JSONDecoder().decode(User.self, from: data)
+                        self.user = user
                         print(user)
                         OperationQueue.main.addOperation {
                             self.performSegue(withIdentifier: "segueFromSignToHome", sender: self)
