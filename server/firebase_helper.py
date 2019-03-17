@@ -7,7 +7,6 @@ class MyFirebase:
     storage = None
 
 myFirebase = MyFirebase()
-user_id = None
 
 def firebase_init():
     config = {
@@ -24,31 +23,42 @@ def firebase_init():
     myFirebase.storage = myFirebase.firebase.storage()
 
 def auth_user(email, password):
-    global myFirebase
     auth = myFirebase.firebase.auth()
     user = auth.sign_in_with_email_and_password(email, password)
 
-    global user_id
     user_id = user['localId']
 
     return user_id
 
 
 def create_user(email, password):
-    global myFirebase
     auth = myFirebase.firebase.auth()
     user = auth.create_user_with_email_and_password(email, password)
 
-    global user_id
     user_id = user['localId']
-    user_init()
+    user_init(user_id)
     return user_id
 
-def user_init():
+def retrieve_user_albums(user_id):
+    db = myFirebase.db
+    album_data = dict(db.child("Albums").child(user_id).get().val())
+    print(album_data)
+    return album_data
+
+def create_uesr_album(user_id, album_name):
+    db = myFirebase.db
+    album_data = dict(db.child("Albums").child(user_id).get().val())
+    if album_name in album_data:
+        return False
+    album_data["album_name"] = album_name
+    album_data["album_count"] = album_data["album_count"] + 1
+    db.child("Albums").child(user_id).update(album_data)
+    return True
+
+def user_init(user_id):
     global myFirebase
     album_data = {
-        "album-count": "1",
-        "album1": {}
+        "album_count": "0"
     }
     myFirebase.db.child("Albums").child(user_id).set(album_data)
     return album_data

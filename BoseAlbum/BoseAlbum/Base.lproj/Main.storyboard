@@ -108,7 +108,7 @@
                                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                                 <nil key="textColor"/>
                                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                                <textInputTraits key="textInputTraits"/>
+                                                <textInputTraits key="textInputTraits" secureTextEntry="YES"/>
                                             </textField>
                                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="fem-hA-muM">
                                                 <rect key="frame" x="148" y="322" width="62" height="36"/>
@@ -156,12 +156,12 @@
                         <outlet property="emailField" destination="pbl-YG-EZq" id="xV8-at-c0C"/>
                         <outlet property="errorLabel" destination="fGZ-G6-r0n" id="nCI-Zw-nBB"/>
                         <outlet property="passwordField" destination="284-PL-1uC" id="Pcs-XI-jzA"/>
-                        <segue destination="2Pc-MC-uZO" kind="presentation" identifier="segueFromLoginToHome" id="s4v-7X-TPm"/>
+                        <segue destination="eOU-tN-Wco" kind="presentation" identifier="segueFromLoginToHome" id="nhh-sy-WG9"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R99-90-eT2" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2218.840579710145" y="-300.66964285714283"/>
+            <point key="canvasLocation" x="2219" y="-419"/>
         </scene>
         <!--Sign Up View Controller-->
         <scene sceneID="8dq-1K-YEi">
@@ -263,27 +263,82 @@
                         <outlet property="emailField" destination="G0M-Tq-8cq" id="YQF-LH-nrf"/>
                         <outlet property="errorLabel" destination="5IQ-uT-WuV" id="CVY-CB-RFn"/>
                         <outlet property="passwordField" destination="Yjv-nT-XC7" id="s5C-Qr-x9u"/>
-                        <segue destination="2Pc-MC-uZO" kind="presentation" identifier="segueFromSignToHome" id="BwW-Vz-r8x"/>
+                        <segue destination="eOU-tN-Wco" kind="presentation" identifier="segueFromSignToHome" id="E5h-52-0AP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fay-Se-CaR" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="2219" y="710"/>
         </scene>
-        <!--View Controller-->
-        <scene sceneID="Lrg-p3-ogP">
+        <!--Albums-->
+        <scene sceneID="lgg-eK-vM0">
             <objects>
-                <viewController id="2Pc-MC-uZO" sceneMemberID="viewController">
-                    <view key="view" contentMode="scaleToFill" id="QrJ-cB-t6U">
+                <viewController storyboardIdentifier="home" id="1yN-OE-P1O" customClass="HomeViewController" customModule="BoseAlbum" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mV4-wi-PBa">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LSg-Ub-Wbw">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ekf-lt-Cih">
+                                    <size key="itemSize" width="180" height="180"/>
+                                    <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                    <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                    <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                </collectionViewFlowLayout>
+                                <cells>
+                                    <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="photoCell" id="eSu-Wm-sob" customClass="PhotoCollectionViewCell" customModule="BoseAlbum" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
+                                        <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                        <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO">
+                                            <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                            <subviews>
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gmt-9V-2iA">
+                                                    <rect key="frame" x="10" y="9" width="160" height="131"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                </imageView>
+                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Label" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qrG-XF-uxj">
+                                                    <rect key="frame" x="10" y="149.5" width="160" height="20.5"/>
+                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                    <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                                    <nil key="textColor"/>
+                                                    <nil key="highlightedColor"/>
+                                                </label>
+                                            </subviews>
+                                        </view>
+                                        <connections>
+                                            <outlet property="albumImageView" destination="Gmt-9V-2iA" id="ZLk-Rt-hXQ"/>
+                                            <outlet property="albumLabel" destination="qrG-XF-uxj" id="CNj-yJ-EsJ"/>
+                                        </connections>
+                                    </collectionViewCell>
+                                </cells>
+                            </collectionView>
+                        </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
-                        <viewLayoutGuide key="safeArea" id="qSA-NP-IOa"/>
+                        <constraints>
+                            <constraint firstItem="LSg-Ub-Wbw" firstAttribute="leading" secondItem="2TS-Tw-e55" secondAttribute="leading" id="9iC-LH-lpX"/>
+                            <constraint firstItem="2TS-Tw-e55" firstAttribute="bottom" secondItem="LSg-Ub-Wbw" secondAttribute="bottom" id="MzT-Zr-TZi"/>
+                            <constraint firstItem="LSg-Ub-Wbw" firstAttribute="top" secondItem="2TS-Tw-e55" secondAttribute="top" id="j8A-VB-fD1"/>
+                            <constraint firstItem="2TS-Tw-e55" firstAttribute="trailing" secondItem="LSg-Ub-Wbw" secondAttribute="trailing" id="lDX-WA-KsY"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="2TS-Tw-e55"/>
                     </view>
+                    <navigationItem key="navigationItem" title="Albums" id="boY-rN-IYF">
+                        <barButtonItem key="leftBarButtonItem" systemItem="add" id="hur-Yb-Pxh">
+                            <connections>
+                                <action selector="addAlbum:" destination="1yN-OE-P1O" id="nFG-Rv-RxS"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <connections>
+                        <outlet property="collectionView" destination="LSg-Ub-Wbw" id="ygO-76-UDR"/>
+                    </connections>
                 </viewController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="yKY-fN-M0W" userLabel="First Responder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="njd-UA-XBI" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="3466" y="245"/>
+            <point key="canvasLocation" x="4698.5507246376819" y="162.72321428571428"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NB9-sD-16h">
@@ -303,8 +358,26 @@
             </objects>
             <point key="canvasLocation" x="-78.260869565217391" y="124.55357142857142"/>
         </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Otq-51-IB3">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="eOU-tN-Wco" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="nnd-2A-NY3">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="1yN-OE-P1O" kind="relationship" relationship="rootViewController" id="NQE-HB-MQJ"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xby-qB-vkQ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3791" y="163"/>
+        </scene>
     </scenes>
     <inferredMetricsTieBreakers>
-        <segue reference="s4v-7X-TPm"/>
+        <segue reference="nhh-sy-WG9"/>
     </inferredMetricsTieBreakers>
 </document>
