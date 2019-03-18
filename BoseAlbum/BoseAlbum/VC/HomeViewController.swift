@@ -12,6 +12,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     var user: User?
     var albums = Albums()
+    var curAlbumName = ""
     
     @IBOutlet weak var collectionView: UICollectionView!
     
@@ -20,13 +21,24 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         collectionView.dataSource = self
         collectionView.delegate = self
         
-        var layout = self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
+        let layout = self.collectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
         layout.minimumLineSpacing = 5
         layout.itemSize = CGSize(width: (self.collectionView.frame.size.width - 20)/2, height: self.collectionView.frame.size.height/4)
         
         retrieveAlbums()
         // Do any additional setup after loading the view.
+    }
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?)
+    {
+        if segue.identifier == "segueFromHomeToPhoto"
+        {
+            let targetController = segue.destination as! PhotoViewController
+            targetController.user = self.user!
+//            print(self.curAlbumName)
+            targetController.albumName = self.curAlbumName
+        }
     }
     
     @IBAction func addAlbum(_ sender: Any) {
@@ -72,7 +84,9 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                     else {
                         let alert = UIAlertController(title: "Fail to add album", message: "Choose a new name for the album", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-                        self.present(alert, animated: true)
+                        DispatchQueue.main.async {
+                            self.present(alert, animated: true)
+                        }
                     }
                 }.resume()
             }
@@ -134,7 +148,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCollectionViewCell
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "albumCell", for: indexPath) as! AlbumCollectionViewCell
 //        print(self.albums.albums[indexPath.item])
         let str = self.albums.albums[indexPath.item]
         if let user = self.user {
@@ -153,6 +167,16 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.layer.borderColor = UIColor.gray.cgColor
         cell?.layer.borderWidth = 2
+        
+        let str = self.albums.albums[indexPath.item]
+        if let user = self.user {
+            let start = str.index(str.startIndex, offsetBy: user.userID.count)
+            self.curAlbumName = String(str.suffix(from: start))
+        }
+        else {
+            self.curAlbumName = ""
+        }
+        self.performSegue(withIdentifier: "segueFromHomeToPhoto", sender: self)
     }
     
     func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath) {

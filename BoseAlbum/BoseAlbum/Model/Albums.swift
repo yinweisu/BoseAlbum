@@ -7,12 +7,15 @@
 //
 
 import Foundation
+import UIKit
 
 struct Albums: Decodable {
     var albumCounts: Int = 0
     var albums: [String] = []
 }
 
-struct Album: Decodable {
-    var photos: [URL] = []
+struct Album {
+    var photoCount: Int = 0
+    var photos: [UIImage] = []
+    var photoNames: [String] = []
 }
