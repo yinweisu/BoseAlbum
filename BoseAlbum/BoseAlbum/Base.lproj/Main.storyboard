@@ -375,18 +375,48 @@
                                             <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XsW-h2-TnZ">
+                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="XsW-h2-TnZ">
                                                     <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
                                                 </imageView>
+                                                <visualEffectView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="A1L-pn-RGO">
+                                                    <rect key="frame" x="4" y="4" width="20" height="20"/>
+                                                    <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" id="6eR-Yc-jML">
+                                                        <rect key="frame" x="0.0" y="0.0" width="20" height="20"/>
+                                                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                                                        <subviews>
+                                                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ty4-PU-2vy">
+                                                                <rect key="frame" x="4" y="4" width="12" height="12"/>
+                                                                <state key="normal" title="Button" image="close"/>
+                                                                <connections>
+                                                                    <action selector="deleteButtonDidTap:" destination="t8O-5g-XdZ" eventType="touchUpInside" id="CGj-Q5-dj4"/>
+                                                                </connections>
+                                                            </button>
+                                                        </subviews>
+                                                        <constraints>
+                                                            <constraint firstAttribute="trailing" secondItem="ty4-PU-2vy" secondAttribute="trailing" constant="4" id="A11-s3-Adv"/>
+                                                            <constraint firstItem="ty4-PU-2vy" firstAttribute="leading" secondItem="6eR-Yc-jML" secondAttribute="leading" constant="4" id="Okh-n8-akv"/>
+                                                            <constraint firstItem="ty4-PU-2vy" firstAttribute="top" secondItem="6eR-Yc-jML" secondAttribute="top" constant="4" id="f1n-Ks-IL1"/>
+                                                            <constraint firstAttribute="bottom" secondItem="ty4-PU-2vy" secondAttribute="bottom" constant="4" id="lxR-Ah-yiC"/>
+                                                        </constraints>
+                                                    </view>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="0Ga-qQ-g8N"/>
+                                                        <constraint firstAttribute="width" constant="20" id="Wnx-iv-9OZ"/>
+                                                    </constraints>
+                                                    <blurEffect style="extraLight"/>
+                                                </visualEffectView>
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="bottom" secondItem="XsW-h2-TnZ" secondAttribute="bottom" id="6rR-db-u7f"/>
-                                            <constraint firstItem="XsW-h2-TnZ" firstAttribute="top" secondItem="t8O-5g-XdZ" secondAttribute="top" id="b0d-qj-7vr"/>
-                                            <constraint firstAttribute="trailing" secondItem="XsW-h2-TnZ" secondAttribute="trailing" id="f5g-9N-Im5"/>
-                                            <constraint firstItem="XsW-h2-TnZ" firstAttribute="leading" secondItem="t8O-5g-XdZ" secondAttribute="leading" id="uaC-zG-USf"/>
+                                            <constraint firstAttribute="trailing" secondItem="XsW-h2-TnZ" secondAttribute="trailing" id="0zW-ft-Y1m"/>
+                                            <constraint firstItem="XsW-h2-TnZ" firstAttribute="top" secondItem="t8O-5g-XdZ" secondAttribute="top" id="LNy-kp-iAC"/>
+                                            <constraint firstItem="A1L-pn-RGO" firstAttribute="leading" secondItem="XsW-h2-TnZ" secondAttribute="leading" constant="4" id="SBw-md-Ozg"/>
+                                            <constraint firstAttribute="bottom" secondItem="XsW-h2-TnZ" secondAttribute="bottom" id="Yx7-6h-uZ7"/>
+                                            <constraint firstItem="XsW-h2-TnZ" firstAttribute="leading" secondItem="t8O-5g-XdZ" secondAttribute="leading" id="rz8-Ab-AMv"/>
+                                            <constraint firstItem="A1L-pn-RGO" firstAttribute="top" secondItem="XsW-h2-TnZ" secondAttribute="top" constant="4" id="xaC-pr-ROG"/>
                                         </constraints>
                                         <connections>
+                                            <outlet property="deleteButtonBackgroundView" destination="A1L-pn-RGO" id="xwu-Od-ITD"/>
                                             <outlet property="imageView" destination="XsW-h2-TnZ" id="wPf-ug-TQz"/>
                                         </connections>
                                     </collectionViewCell>
@@ -408,12 +438,12 @@
                     </view>
                     <navigationItem key="navigationItem" id="rpk-rA-ShQ">
                         <rightBarButtonItems>
-                            <barButtonItem systemItem="action" id="Jfl-5d-v67">
+                            <barButtonItem systemItem="edit" id="Jfl-5d-v67">
                                 <connections>
                                     <action selector="shareAlbum:" destination="0aY-FD-4jI" id="WNu-RP-z5K"/>
                                 </connections>
                             </barButtonItem>
-                            <barButtonItem title="Import" id="Ux0-Ja-8PN">
+                            <barButtonItem systemItem="camera" id="Ux0-Ja-8PN">
                                 <connections>
                                     <action selector="importImage:" destination="0aY-FD-4jI" id="TnF-js-HIM"/>
                                 </connections>
@@ -421,6 +451,7 @@
                         </rightBarButtonItems>
                     </navigationItem>
                     <connections>
+                        <outlet property="addBarButtonItem" destination="Ux0-Ja-8PN" id="8T1-ck-sna"/>
                         <outlet property="photoCollectionView" destination="2hr-S3-xlc" id="Hyw-SH-hmw"/>
                         <segue destination="JEr-B8-A0W" kind="push" identifier="segueFromPhotoToImage" id="ri4-bK-vUR"/>
                     </connections>
@@ -496,6 +527,9 @@
             <point key="canvasLocation" x="3791" y="163"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="close" width="1597" height="1606"/>
+    </resources>
     <inferredMetricsTieBreakers>
         <segue reference="nhh-sy-WG9"/>
     </inferredMetricsTieBreakers>

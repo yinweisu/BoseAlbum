@@ -14,8 +14,16 @@ struct Albums: Decodable {
     var albums: [String] = []
 }
 
+protocol AlbumDelegate {
+    func updateCollectionView()
+}
+
 struct Album {
-    var photoCount: Int = 0
-    var photos: [UIImage] = []
+    var delegate: AlbumDelegate?
+    var photos: [UIImage] = [] {
+        didSet {
+            delegate?.updateCollectionView()
+        }
+    }
     var photoNames: [String] = []
 }

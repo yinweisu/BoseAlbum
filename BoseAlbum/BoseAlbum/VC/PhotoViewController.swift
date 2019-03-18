@@ -19,7 +19,9 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     var imagePicker = UIImagePickerController()
     var curImage: UIImage?
     
+    
     @IBOutlet weak var photoCollectionView: UICollectionView!
+    @IBOutlet weak var addBarButtonItem: UIBarButtonItem!
     
 //    override func viewWillAppear(_ animated: Bool) {
 //        super.viewWillAppear(animated)
@@ -30,8 +32,9 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
         photoCollectionView.delegate = self
         photoCollectionView.dataSource = self
         imagePicker.delegate = self
+        album.delegate = self
         self.navigationItem.title = self.albumName
-        
+        self.navigationItem.rightBarButtonItem = editButtonItem
         
         let layout = self.photoCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
@@ -78,10 +81,6 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
                 print(error ?? "error")
                 return
             }
-            //            print(type(of: dictionary["album_count"]))
-//            if let photo_count = dictionary["photo_count"] as? String {
-//                self.album.photoCount = Int(photo_count) ?? 0
-//            }
             
             if let photo_names = dictionary["photo_names"] as? [String: Any] {
                 self.album.photoNames = Array(photo_names.keys).sorted().map {$0+".jpeg"}
@@ -96,10 +95,6 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
                         }
                         else {
                             self.album.photos.append(UIImage(data: data!)!)
-                            self.album.photoCount += 1
-                            DispatchQueue.main.async {
-                                self.photoCollectionView.reloadData()
-                            }
                         }
                     })
                 }
@@ -119,7 +114,6 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
         
         if let oriImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
-            self.album.photoCount += 1
             self.album.photos.append(oriImage)
             self.photoCollectionView.reloadData()
         }
@@ -185,12 +179,13 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return album.photoCount
+        return album.photos.count
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCollectionViewCell
         cell.imageView.image = self.album.photos[indexPath.item]
+        cell.delegate = self
         return cell
     }
     
@@ -207,5 +202,83 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.layer.borderColor = UIColor.lightGray.cgColor
         cell?.layer.borderWidth = 0.5
+    }
+    
+    override func setEditing(_ editing: Bool, animated: Bool) {
+        super.setEditing(editing, animated: animated)
+        
+        addBarButtonItem.isEnabled = !editing
+        if let indexPaths = photoCollectionView?.indexPathsForVisibleItems {
+            for indexPath in indexPaths {
+                if let cell = photoCollectionView.cellForItem(at: indexPath) as? PhotoCollectionViewCell {
+                    cell.isEditing = editing
+                }
+            }
+        }
+    }
+}
+
+extension PhotoViewController: PhotoCollectionViewCellDelegate {
+    func delete(cell: PhotoCollectionViewCell) {
+        if let indexPath = photoCollectionView?.indexPath(for: cell) {
+            // delete datasource
+            album.photos.remove(at: indexPath.item)
+            let storage_url = album.photoNames.remove(at: indexPath.item)
+            
+            // delete in collection view
+            photoCollectionView?.deleteItems(at: [indexPath])
+            
+            // delete in database
+            let baseURL = "http:0.0.0.0:5000/deleteImage"
+            let parameters = ["url": storage_url, "user_id": self.user!.userID, "album_name": self.albumName]
+            
+            guard let url = URL(string: baseURL) else { return }
+            var request = URLRequest(url: url)
+            request.httpMethod = "POST"
+            request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+            guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
+            request.httpBody = httpBody
+            
+            let session = URLSession.shared
+            session.dataTask(with: request) { (data, response, error) in
+                guard let data = data else {
+                    print("Error: No data to decode")
+                    return
+                }
+                
+                guard let generalResponse = try? JSONDecoder().decode(GeneralResponse.self, from: data) else {
+                    print("Error: Couldn't decode data into GeneralResponse")
+                    return
+                }
+                
+                if generalResponse.status == "success" {
+                    print("database delete success")
+                }
+                else {
+                    print("delete photo server database error")
+                }
+            }.resume()
+            
+            // delete in datastore
+            let storageRef = self.storage.reference()
+            let imageRef = storageRef.child(storage_url)
+            imageRef.delete {
+                error in
+                if let error = error {
+                    // Uh-oh, an error occurred!
+                    print(error)
+                } else {
+                    // File deleted successfully
+                    print("successfully delete in firestore")
+                }
+            }
+            
+        }
+    }
+}
+
+extension PhotoViewController: AlbumDelegate {
+    func updateCollectionView() {
+        photoCollectionView.reloadData()
     }
 }
