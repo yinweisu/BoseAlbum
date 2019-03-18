@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A44AAFE42240310B00516001 /* We are the champions.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A44AAFE22240310B00516001 /* We are the champions.mp3 */; };
+		A44AAFE52240310B00516001 /* We will rock you.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A44AAFE32240310B00516001 /* We will rock you.mp3 */; };
 		A478546C223D7B2D00F4B411 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A478546B223D7B2D00F4B411 /* LoginViewController.swift */; };
 		A478546E223D7B3800F4B411 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A478546D223D7B3800F4B411 /* SignUpViewController.swift */; };
 		A4785471223DD88700F4B411 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4785470223DD88700F4B411 /* User.swift */; };
@@ -30,6 +32,8 @@
 /* Begin PBXFileReference section */
 		5A61F7B5FD9A4AD16F53E0D6 /* Pods_BoseAlbum.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_BoseAlbum.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		96FFDB6539920BB047DC99CD /* Pods-BoseAlbum.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoseAlbum.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BoseAlbum/Pods-BoseAlbum.debug.xcconfig"; sourceTree = "<group>"; };
+		A44AAFE22240310B00516001 /* We are the champions.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "We are the champions.mp3"; sourceTree = "<group>"; };
+		A44AAFE32240310B00516001 /* We will rock you.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "We will rock you.mp3"; sourceTree = "<group>"; };
 		A478546B223D7B2D00F4B411 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A478546D223D7B3800F4B411 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		A4785470223DD88700F4B411 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -79,6 +83,15 @@
 				5A61F7B5FD9A4AD16F53E0D6 /* Pods_BoseAlbum.framework */,
 			);
 			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		A44AAFE62240311300516001 /* Songs */ = {
+			isa = PBXGroup;
+			children = (
+				A44AAFE22240310B00516001 /* We are the champions.mp3 */,
+				A44AAFE32240310B00516001 /* We will rock you.mp3 */,
+			);
+			path = Songs;
 			sourceTree = "<group>";
 		};
 		A478546F223D7B5600F4B411 /* VC */ = {
@@ -131,6 +144,7 @@
 				A4ABC3D5223CA2BB004F5906 /* AppDelegate.swift */,
 				A478546F223D7B5600F4B411 /* VC */,
 				A4785472223DD89900F4B411 /* Model */,
+				A44AAFE62240311300516001 /* Songs */,
 				A4ABC3D9223CA2BC004F5906 /* Main.storyboard */,
 				A4ABC3DC223CA2BD004F5906 /* Assets.xcassets */,
 				A4ABC3DE223CA2BD004F5906 /* LaunchScreen.storyboard */,
@@ -200,7 +214,9 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A44AAFE52240310B00516001 /* We will rock you.mp3 in Resources */,
 				A4ABC3E0223CA2BD004F5906 /* LaunchScreen.storyboard in Resources */,
+				A44AAFE42240310B00516001 /* We are the champions.mp3 in Resources */,
 				A4ABC3E8223CA4F9004F5906 /* GoogleService-Info.plist in Resources */,
 				A4ABC3DD223CA2BD004F5906 /* Assets.xcassets in Resources */,
 				A4ABC3DB223CA2BC004F5906 /* Main.storyboard in Resources */,

@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import AVFoundation
 
 class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
     
@@ -15,6 +16,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     var curAlbumName = ""
     
     @IBOutlet weak var collectionView: UICollectionView!
+    @IBOutlet weak var toolBar: UIToolbar!
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -184,5 +186,54 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         cell?.layer.borderColor = UIColor.lightGray.cgColor
         cell?.layer.borderWidth = 0.5
     }
-
+    
+    // MUSIC
+    @IBAction func previousTapped(_ sender: Any) {
+        songIndex -= 1
+        do {
+            let audioPath = Bundle.main.path(forResource: mySongs[songIndex], ofType: ".mp3")
+            try audioPlayer = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
+            audioPlayer.play()
+            
+            var items = self.toolBar.items
+            items![2] = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.pause, target: self, action: #selector(HomeViewController.playTapped(_:)))
+            self.toolBar.setItems(items, animated: true)
+        }
+        catch {
+            print("Error loading music")
+        }
+    }
+    
+    @IBAction func playTapped(_ sender: Any) {
+        if audioPlayer.isPlaying {
+            audioPlayer.pause()
+            var items = self.toolBar.items
+            items![2] = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.play, target: self, action: #selector(HomeViewController.playTapped(_:)))
+            self.toolBar.setItems(items, animated: true)
+        }
+        else {
+            audioPlayer.play()
+            var items = self.toolBar.items
+            items![2] = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.pause, target: self, action: #selector(HomeViewController.playTapped(_:)))
+            self.toolBar.setItems(items, animated: true)
+        }
+        
+    }
+    
+    @IBAction func nextTapped(_ sender: Any) {
+        songIndex += 1
+        do {
+            let audioPath = Bundle.main.path(forResource: mySongs[songIndex], ofType: ".mp3")
+            try audioPlayer = AVAudioPlayer(contentsOf: NSURL(fileURLWithPath: audioPath!) as URL)
+            audioPlayer.play()
+            
+            var items = self.toolBar.items
+            items![2] = UIBarButtonItem(barButtonSystemItem: UIBarButtonItem.SystemItem.pause, target: self, action: #selector(HomeViewController.playTapped(_:)))
+            self.toolBar.setItems(items, animated: true)
+        }
+        catch {
+            print("Error loading music")
+        }
+    }
+    
 }
