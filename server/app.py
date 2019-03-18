@@ -56,6 +56,39 @@ def create_album():
 
     return json.dumps(response)
 
+@app.route('/importImage', methods = ['POST'])
+def import_image():
+    data = request.get_json()
+    storage_url = data['url']
+    user_id = data['user_id']
+    album_name = data['album_name']
+    if upload_image(user_id, album_name, storage_url):
+        response = {"status": "success"}
+    else:
+        response = {"status": "fail"}
+
+    return json.dumps(response)
+
+@app.route('/deleteImage', methods = ['POST'])
+def delete_image():
+    data = request.get_json()
+    storage_url = data['url']
+    user_id = data["user_id"]
+    album_name = data["album_name"]
+    delete_user_image(user_id, album_name, storage_url)
+
+    return json.dumps({"status": "success"})
+
+@app.route('/retrieveImages', methods = ['POST'])
+def retrieve_images():
+    data = request.get_json()
+    user_id = data["user_id"]
+    album_name = data["album_name"]
+    response = get_user_photos(user_id, album_name)
+
+    return json.dumps(response)
+
+
 if __name__ == "__main__":
     firebase_init()
     app.run(

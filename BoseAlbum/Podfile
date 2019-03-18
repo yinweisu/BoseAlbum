@@ -7,4 +7,5 @@ target 'BoseAlbum' do
 
   # Pods for BoseAlbum
   pod 'Firebase/Core'
+  pod 'Firebase/Storage'
 end

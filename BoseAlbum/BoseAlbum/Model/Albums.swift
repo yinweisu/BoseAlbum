@@ -7,12 +7,23 @@
 //
 
 import Foundation
+import UIKit
 
 struct Albums: Decodable {
     var albumCounts: Int = 0
     var albums: [String] = []
 }
 
-struct Album: Decodable {
-    var photos: [URL] = []
+protocol AlbumDelegate {
+    func updateCollectionView()
+}
+
+struct Album {
+    var delegate: AlbumDelegate?
+    var photos: [UIImage] = [] {
+        didSet {
+            delegate?.updateCollectionView()
+        }
+    }
+    var photoNames: [String] = []
 }
