@@ -157,6 +157,7 @@
                         <outlet property="errorLabel" destination="fGZ-G6-r0n" id="nCI-Zw-nBB"/>
                         <outlet property="passwordField" destination="284-PL-1uC" id="Pcs-XI-jzA"/>
                         <segue destination="eOU-tN-Wco" kind="presentation" identifier="segueFromLoginToHome" id="nhh-sy-WG9"/>
+                        <segue destination="0aY-FD-4jI" kind="presentation" identifier="segueFromLoginToPhoto" id="nP3-Eb-kr1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R99-90-eT2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -264,6 +265,7 @@
                         <outlet property="errorLabel" destination="5IQ-uT-WuV" id="CVY-CB-RFn"/>
                         <outlet property="passwordField" destination="Yjv-nT-XC7" id="s5C-Qr-x9u"/>
                         <segue destination="eOU-tN-Wco" kind="presentation" identifier="segueFromSignToHome" id="E5h-52-0AP"/>
+                        <segue destination="0aY-FD-4jI" kind="presentation" identifier="segueFromSignToPhoto" id="h3J-4y-ZPt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fay-Se-CaR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -324,6 +326,29 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </collectionReusableView>
                             </collectionView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c07-IL-qnj">
+                                <rect key="frame" x="0.0" y="818" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem systemItem="rewind" id="QSA-w8-o4K">
+                                        <connections>
+                                            <action selector="previousTapped:" destination="1yN-OE-P1O" id="Bb6-ni-Adc"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Ke0-JB-IOe"/>
+                                    <barButtonItem systemItem="pause" id="1Ii-Xi-dLJ">
+                                        <connections>
+                                            <action selector="playTapped:" destination="1yN-OE-P1O" id="nfq-wb-7Z4"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="dCz-9y-bDp"/>
+                                    <barButtonItem systemItem="fastForward" id="AP7-Bu-GHv">
+                                        <connections>
+                                            <action selector="nextTapped:" destination="1yN-OE-P1O" id="M4O-yA-pkU"/>
+                                        </connections>
+                                    </barButtonItem>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
@@ -343,6 +368,7 @@
                     </navigationItem>
                     <connections>
                         <outlet property="collectionView" destination="LSg-Ub-Wbw" id="ygO-76-UDR"/>
+                        <outlet property="toolBar" destination="c07-IL-qnj" id="nCH-Sj-1M0"/>
                         <segue destination="0aY-FD-4jI" kind="push" identifier="segueFromHomeToPhoto" id="Z5p-1N-9ID"/>
                     </connections>
                 </viewController>
@@ -359,7 +385,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2hr-S3-xlc">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vdZ-tR-oQN">
                                     <size key="itemSize" width="180" height="180"/>
@@ -426,6 +452,31 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </collectionReusableView>
                             </collectionView>
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WcI-7k-FqB">
+                                <rect key="frame" x="0.0" y="818" width="414" height="44"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <items>
+                                    <barButtonItem systemItem="rewind" id="uD5-tb-2Km">
+                                        <connections>
+                                            <action selector="previousTapped:" destination="0aY-FD-4jI" id="E3n-ag-KN5"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="csQ-3z-MZq"/>
+                                    <barButtonItem systemItem="pause" id="uZB-nn-KXb">
+                                        <connections>
+                                            <action selector="playTapped:" destination="0aY-FD-4jI" id="csL-vq-xKJ"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="Mo6-GE-yPw"/>
+                                    <barButtonItem systemItem="fastForward" id="vHa-DI-RPZ">
+                                        <connections>
+                                            <action selector="nextTapped:" destination="0aY-FD-4jI" id="vhb-We-unA"/>
+                                        </connections>
+                                    </barButtonItem>
+                                    <barButtonItem style="plain" systemItem="flexibleSpace" id="lcj-ya-1wo"/>
+                                    <barButtonItem systemItem="action" id="tbF-PB-eU0"/>
+                                </items>
+                            </toolbar>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
@@ -453,6 +504,7 @@
                     <connections>
                         <outlet property="addBarButtonItem" destination="Ux0-Ja-8PN" id="8T1-ck-sna"/>
                         <outlet property="photoCollectionView" destination="2hr-S3-xlc" id="Hyw-SH-hmw"/>
+                        <outlet property="toolBar" destination="WcI-7k-FqB" id="bbD-aY-Ce5"/>
                         <segue destination="JEr-B8-A0W" kind="push" identifier="segueFromPhotoToImage" id="ri4-bK-vUR"/>
                     </connections>
                 </viewController>
@@ -469,7 +521,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6lq-ix-QTb">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -532,5 +584,6 @@
     </resources>
     <inferredMetricsTieBreakers>
         <segue reference="nhh-sy-WG9"/>
+        <segue reference="nP3-Eb-kr1"/>
     </inferredMetricsTieBreakers>
 </document>
