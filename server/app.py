@@ -82,9 +82,8 @@ def delete_image():
 @app.route('/retrieveImages', methods = ['POST'])
 def retrieve_images():
     data = request.get_json()
-    user_id = data["user_id"]
     album_name = data["album_name"]
-    response = get_user_photos(user_id, album_name)
+    response = get_user_photos(album_name)
 
     return json.dumps(response)
 

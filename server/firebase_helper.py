@@ -103,8 +103,8 @@ def delete_user_image(user_id, album_name, storage_url):
     db.child("Albums").child(user_id + album_name).child("photo_names").set(album)
     return True
 
-def get_user_photos(user_id, album_name):
+def get_user_photos(album_name):
     db = myFirebase.db
-    photo_data = dict(db.child("Albums").child(user_id+album_name).get().val())
+    photo_data = dict(db.child("Albums").child(album_name).get().val())
     print(photo_data)
     return photo_data

@@ -11,6 +11,8 @@ import UIKit
 class SignUpViewController: UIViewController {
 
     var user: User?
+    var viewAlbumName = ""
+    var viewer = false
     
     @IBOutlet weak var emailField: UITextField!
     @IBOutlet weak var passwordField: UITextField!
@@ -97,5 +99,7 @@ class SignUpViewController: UIViewController {
         }
     }
     
-    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
+    }
 }
