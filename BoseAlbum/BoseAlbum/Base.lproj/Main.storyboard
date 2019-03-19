@@ -54,13 +54,22 @@
                                     <constraint firstAttribute="height" constant="128" id="dNT-pI-OSz"/>
                                 </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="boseLogin" translatesAutoresizingMaskIntoConstraints="NO" id="H3Q-32-5HJ">
+                                <rect key="frame" x="87" y="272.5" width="240" height="120"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="120" id="jdX-bB-yVj"/>
+                                    <constraint firstAttribute="width" constant="240" id="tam-27-ery"/>
+                                </constraints>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="H3Q-32-5HJ" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="0.7" id="2yr-nq-svM"/>
                             <constraint firstItem="zDX-97-f28" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="Dz7-Uc-Tak"/>
                             <constraint firstItem="zDX-97-f28" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="L4G-Kg-JaP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="zDX-97-f28" secondAttribute="trailing" constant="20" id="aTR-O4-azC"/>
                             <constraint firstItem="zDX-97-f28" firstAttribute="centerY" secondItem="6Tk-OE-BBY" secondAttribute="centerY" multiplier="1.5" constant="1" id="u0U-cy-GJS"/>
+                            <constraint firstItem="H3Q-32-5HJ" firstAttribute="centerX" secondItem="6Tk-OE-BBY" secondAttribute="centerX" id="yTR-JJ-uPm"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -539,7 +548,6 @@
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="14"/>
                                 <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
-                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
                             </textView>
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
@@ -627,6 +635,7 @@
         </scene>
     </scenes>
     <resources>
+        <image name="boseLogin" width="256" height="256"/>
         <image name="close" width="1597" height="1606"/>
     </resources>
     <inferredMetricsTieBreakers>

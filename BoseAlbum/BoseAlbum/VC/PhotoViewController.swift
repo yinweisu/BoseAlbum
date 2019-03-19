@@ -108,7 +108,8 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
                                 print(error)
                             }
                             else {
-                                self.album.photos.append(UIImage(data: data!)!)
+                                let dataDecoded = Data(base64Encoded: data!)
+                                self.album.photos.append(UIImage(data: dataDecoded!)!)
                             }
                         })
                     }
@@ -144,7 +145,7 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         if let oriImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             self.album.photos.append(oriImage)
-            let imageData = oriImage.jpegData(compressionQuality: 0.1)
+            let imageData = oriImage.jpegData(compressionQuality: 0.1)?.base64EncodedData()
         
             if let imageURL = info[UIImagePickerController.InfoKey.imageURL] as? URL {
                 let stringImageUrl = imageURL.absoluteString
