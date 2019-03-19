@@ -14,7 +14,7 @@ def firebase_init():
       "authDomain": "bosealbum.firebaseapp.com",
       "databaseURL": "https://bosealbum.firebaseio.com/",
       "storageBucket": "bosealbum.appspot.com",
-      "serviceAccount": "./credentials/bosealbum-firebase-adminsdk-ogbjs-b6254634cb.json"
+      "serviceAccount": "./credentials/bosealbum-firebase-adminsdk-ogbjs-b98f85d063.json"
     }
 
     global myFirebase
