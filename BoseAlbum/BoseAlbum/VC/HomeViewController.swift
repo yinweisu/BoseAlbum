@@ -20,6 +20,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.showSpinner(onView: self.view)
         collectionView.dataSource = self
         collectionView.delegate = self
         
@@ -64,6 +65,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 request.addValue("application/json", forHTTPHeaderField: "Content-Type")
                 guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
                 request.httpBody = httpBody
+                self.showSpinner(onView: self.view)
                 
                 let session = URLSession.shared
                 session.dataTask(with: request) { (data, response, error) in
@@ -82,10 +84,12 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                         DispatchQueue.main.async {
                             self.collectionView.reloadData()
                         }
+                        self.removeSpinner()
                     }
                     else {
                         let alert = UIAlertController(title: "Fail to add album", message: "Choose a new name for the album", preferredStyle: .alert)
                         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+                        self.removeSpinner()
                         DispatchQueue.main.async {
                             self.present(alert, animated: true)
                         }
@@ -140,6 +144,7 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
             DispatchQueue.main.async {
                 self.collectionView.reloadData()
             }
+            self.removeSpinner()
             
         }.resume()
     }
