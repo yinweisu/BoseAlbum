@@ -19,6 +19,8 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     let storage = Storage.storage()
     var imagePicker = UIImagePickerController()
     var curImage: UIImage?
+    var viewer = false
+    var fullAlbumName = ""
     
     
     @IBOutlet weak var photoCollectionView: UICollectionView!
@@ -31,17 +33,24 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        navigationItem.rightBarButtonItem = editButtonItem
+        if viewer == true {
+            addBarButtonItem.isEnabled = false
+            navigationItem.rightBarButtonItem?.isEnabled = false
+        }
+        else {
+            navigationItem.title = self.albumName
+            fullAlbumName = user!.userID + albumName
+        }
         photoCollectionView.delegate = self
         photoCollectionView.dataSource = self
         imagePicker.delegate = self
         album.delegate = self
-        self.navigationItem.title = self.albumName
-        self.navigationItem.rightBarButtonItem = editButtonItem
-        
-        let layout = self.photoCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
+
+        let layout = photoCollectionView.collectionViewLayout as! UICollectionViewFlowLayout
         layout.sectionInset = UIEdgeInsets(top: 0, left: 5, bottom: 0, right: 5)
         layout.minimumLineSpacing = 5
-        layout.itemSize = CGSize(width: (self.photoCollectionView.frame.size.width - 20)/2, height: self.photoCollectionView.frame.size.height/4)
+        layout.itemSize = CGSize(width: (photoCollectionView.frame.size.width - 20)/2, height: photoCollectionView.frame.size.height/4)
         
         retrievePhotos()
         // Do any additional setup after loading the view.
@@ -49,16 +58,20 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if segue.identifier == "segueFromPhotoToImage"
-        {
+        if segue.identifier == "segueFromPhotoToImage" {
             let targetController = segue.destination as! ImageViewController
             targetController.selectedImage = self.curImage!
+        }
+        
+        if segue.identifier == "segueFromPhotoToShare" {
+            let targetController = segue.destination as! ShareViewController
+            targetController.urlString = "bosealbum://" + fullAlbumName
         }
     }
     
     func retrievePhotos() {
         let baseURL = "http:0.0.0.0:5000/retrieveImages"
-        let parameters = ["user_id": self.user!.userID, "album_name": self.albumName]
+        let parameters = ["album_name": self.fullAlbumName]
         
         guard let url = URL(string: baseURL) else { return }
         var request = URLRequest(url: url)
@@ -124,6 +137,7 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
             let stringImageUrl = imageURL.absoluteString
             let stringImageUrlArr = stringImageUrl.components(separatedBy: "/")
             let localName = stringImageUrlArr.last
+            self.album.photoNames.append(self.user!.userID + localName!)
             let storageRef = storage.reference()
             let imageRef = storageRef.child(self.user!.userID + localName!)
             imageRef.putFile(from: imageURL, metadata: nil) { metadata, error in
@@ -266,6 +280,12 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
             print("Error loading music")
         }
     }
+    
+    // Share
+    @IBAction func shareTapped(_ sender: Any) {
+        
+    }
+    
 }
 
 extension PhotoViewController: PhotoCollectionViewCellDelegate {
@@ -276,7 +296,8 @@ extension PhotoViewController: PhotoCollectionViewCellDelegate {
             let storage_url = album.photoNames.remove(at: indexPath.item)
             
             // delete in collection view
-            photoCollectionView?.deleteItems(at: [indexPath])
+//            photoCollectionView?.deleteItems(at: [indexPath])
+            photoCollectionView.reloadData()
             
             // delete in database
             let baseURL = "http:0.0.0.0:5000/deleteImage"

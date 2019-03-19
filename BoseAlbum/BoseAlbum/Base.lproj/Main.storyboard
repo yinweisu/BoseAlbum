@@ -157,7 +157,6 @@
                         <outlet property="errorLabel" destination="fGZ-G6-r0n" id="nCI-Zw-nBB"/>
                         <outlet property="passwordField" destination="284-PL-1uC" id="Pcs-XI-jzA"/>
                         <segue destination="eOU-tN-Wco" kind="presentation" identifier="segueFromLoginToHome" id="nhh-sy-WG9"/>
-                        <segue destination="0aY-FD-4jI" kind="presentation" identifier="segueFromLoginToPhoto" id="nP3-Eb-kr1"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="R99-90-eT2" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -265,7 +264,6 @@
                         <outlet property="errorLabel" destination="5IQ-uT-WuV" id="CVY-CB-RFn"/>
                         <outlet property="passwordField" destination="Yjv-nT-XC7" id="s5C-Qr-x9u"/>
                         <segue destination="eOU-tN-Wco" kind="presentation" identifier="segueFromSignToHome" id="E5h-52-0AP"/>
-                        <segue destination="0aY-FD-4jI" kind="presentation" identifier="segueFromSignToPhoto" id="h3J-4y-ZPt"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="fay-Se-CaR" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -385,7 +383,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2hr-S3-xlc">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vdZ-tR-oQN">
                                     <size key="itemSize" width="180" height="180"/>
@@ -474,7 +472,12 @@
                                         </connections>
                                     </barButtonItem>
                                     <barButtonItem style="plain" systemItem="flexibleSpace" id="lcj-ya-1wo"/>
-                                    <barButtonItem systemItem="action" id="tbF-PB-eU0"/>
+                                    <barButtonItem systemItem="action" id="tbF-PB-eU0">
+                                        <connections>
+                                            <action selector="shareTapped:" destination="0aY-FD-4jI" id="hGw-W4-Wkj"/>
+                                            <segue destination="gZK-kJ-EAP" kind="push" identifier="segueFromPhotoToShare" id="o8M-Q0-LfK"/>
+                                        </connections>
+                                    </barButtonItem>
                                 </items>
                             </toolbar>
                         </subviews>
@@ -512,6 +515,42 @@
             </objects>
             <point key="canvasLocation" x="5608.6956521739139" y="162.72321428571428"/>
         </scene>
+        <!--Share View Controller-->
+        <scene sceneID="mIT-TR-3Lx">
+            <objects>
+                <viewController storyboardIdentifier="share" id="gZK-kJ-EAP" customClass="ShareViewController" customModule="BoseAlbum" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="4hP-Qx-JVg">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" editable="NO" textAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="pV7-gA-cuP">
+                                <rect key="frame" x="20" y="441" width="374" height="68"/>
+                                <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="pV7-gA-cuP" secondAttribute="height" multiplier="11:2" id="fHU-NZ-Zos"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <dataDetectorType key="dataDetectorTypes" link="YES"/>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="pV7-gA-cuP" firstAttribute="centerY" secondItem="xLR-PZ-S6O" secondAttribute="centerY" id="1e8-E8-A9z"/>
+                            <constraint firstItem="xLR-PZ-S6O" firstAttribute="trailing" secondItem="pV7-gA-cuP" secondAttribute="trailing" constant="20" id="4vH-DW-3Od"/>
+                            <constraint firstItem="pV7-gA-cuP" firstAttribute="leading" secondItem="xLR-PZ-S6O" secondAttribute="leading" constant="20" id="LqS-EZ-8iQ"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="xLR-PZ-S6O"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="ZGQ-qF-Uiq"/>
+                    <connections>
+                        <outlet property="urlTextView" destination="pV7-gA-cuP" id="zgB-3d-od7"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Ei0-Y5-r8K" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5608.6956521739139" y="885.9375"/>
+        </scene>
         <!--Image View-->
         <scene sceneID="Kep-4y-2DC">
             <objects>
@@ -521,7 +560,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="6lq-ix-QTb">
-                                <rect key="frame" x="0.0" y="44" width="414" height="818"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
                             </imageView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -540,7 +579,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="YET-ef-sin" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="6582.608695652174" y="158.70535714285714"/>
+            <point key="canvasLocation" x="6584" y="163"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="NB9-sD-16h">
@@ -583,7 +622,6 @@
         <image name="close" width="1597" height="1606"/>
     </resources>
     <inferredMetricsTieBreakers>
-        <segue reference="nhh-sy-WG9"/>
-        <segue reference="nP3-Eb-kr1"/>
+        <segue reference="E5h-52-0AP"/>
     </inferredMetricsTieBreakers>
 </document>

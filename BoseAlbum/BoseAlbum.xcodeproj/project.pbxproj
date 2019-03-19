@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A44AAFE42240310B00516001 /* We are the champions.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A44AAFE22240310B00516001 /* We are the champions.mp3 */; };
 		A44AAFE52240310B00516001 /* We will rock you.mp3 in Resources */ = {isa = PBXBuildFile; fileRef = A44AAFE32240310B00516001 /* We will rock you.mp3 */; };
+		A44AAFE82240986A00516001 /* ShareViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A44AAFE72240986A00516001 /* ShareViewController.swift */; };
 		A478546C223D7B2D00F4B411 /* LoginViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A478546B223D7B2D00F4B411 /* LoginViewController.swift */; };
 		A478546E223D7B3800F4B411 /* SignUpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = A478546D223D7B3800F4B411 /* SignUpViewController.swift */; };
 		A4785471223DD88700F4B411 /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = A4785470223DD88700F4B411 /* User.swift */; };
@@ -34,6 +35,7 @@
 		96FFDB6539920BB047DC99CD /* Pods-BoseAlbum.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BoseAlbum.debug.xcconfig"; path = "Pods/Target Support Files/Pods-BoseAlbum/Pods-BoseAlbum.debug.xcconfig"; sourceTree = "<group>"; };
 		A44AAFE22240310B00516001 /* We are the champions.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "We are the champions.mp3"; sourceTree = "<group>"; };
 		A44AAFE32240310B00516001 /* We will rock you.mp3 */ = {isa = PBXFileReference; lastKnownFileType = audio.mp3; path = "We will rock you.mp3"; sourceTree = "<group>"; };
+		A44AAFE72240986A00516001 /* ShareViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ShareViewController.swift; sourceTree = "<group>"; };
 		A478546B223D7B2D00F4B411 /* LoginViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginViewController.swift; sourceTree = "<group>"; };
 		A478546D223D7B3800F4B411 /* SignUpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpViewController.swift; sourceTree = "<group>"; };
 		A4785470223DD88700F4B411 /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
@@ -103,6 +105,7 @@
 				A4785479223E166900F4B411 /* HomeViewController.swift */,
 				A4785483223F153200F4B411 /* PhotoViewController.swift */,
 				A4785485223F7F4B00F4B411 /* ImageViewController.swift */,
+				A44AAFE72240986A00516001 /* ShareViewController.swift */,
 			);
 			path = VC;
 			sourceTree = "<group>";
@@ -281,6 +284,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A44AAFE82240986A00516001 /* ShareViewController.swift in Sources */,
 				A478546C223D7B2D00F4B411 /* LoginViewController.swift in Sources */,
 				A478547E223EC27E00F4B411 /* GeneralResponse.swift in Sources */,
 				A478547C223E187D00F4B411 /* AlbumCollectionViewCell.swift in Sources */,

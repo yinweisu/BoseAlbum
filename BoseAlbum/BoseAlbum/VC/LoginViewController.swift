@@ -21,6 +21,7 @@ class LoginViewController: UIViewController {
         self.navigationController?.isNavigationBarHidden = false
         self.errorLabel.text = ""
         self.errorLabel.isHidden = true
+//        appDelegate = UIApplication.shared.delegate as! AppDelegate
     }
     
     override func viewDidLoad() {
@@ -30,12 +31,12 @@ class LoginViewController: UIViewController {
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?)
     {
-        if segue.identifier == "segueFromLoginToHome"
-        {
+        if segue.identifier == "segueFromLoginToHome" {
             let destinationNavigationController = segue.destination as! UINavigationController
             let targetController = destinationNavigationController.topViewController as! HomeViewController
             targetController.user = self.user!
         }
+        
     }
 
     @IBAction func loginPressed(_ sender: Any) {
@@ -84,5 +85,9 @@ class LoginViewController: UIViewController {
                 }
             }
         }.resume()
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        self.view.endEditing(true)
     }
 }

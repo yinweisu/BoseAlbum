@@ -25,6 +25,9 @@ var audioPlayer = AVAudioPlayer()
 
 class StartViewController: UIViewController {
 
+    var viewer = false
+    var fullAlbumName = ""
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         self.navigationController?.isNavigationBarHidden = true
@@ -40,6 +43,15 @@ class StartViewController: UIViewController {
         }
         catch {
             print("Error loading music")
+        }
+        if viewer == true {
+            let storyboard = UIStoryboard(name: "Main", bundle: nil)
+            let VC = storyboard.instantiateViewController(withIdentifier: "photo") as! PhotoViewController
+            VC.viewer = true
+            VC.fullAlbumName = fullAlbumName
+            let nav = UINavigationController()
+            nav.viewControllers = [VC]
+            self.present(nav, animated: true, completion: nil)
         }
         // Do any additional setup after loading the view, typically from a nib.
     }
@@ -59,7 +71,7 @@ class StartViewController: UIViewController {
                     findString = findString?.replacingOccurrences(of: ".mp3", with: "")
                     mySongs.append(findString!)
                 }
-                print(mySongs)
+//                print(mySongs)
             }
         } catch {
             

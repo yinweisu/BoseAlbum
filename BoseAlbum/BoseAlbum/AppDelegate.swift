@@ -13,6 +13,8 @@ import Firebase
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
+    var viewer = false
+    var viewAlbumName = ""
 
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
@@ -44,7 +46,20 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
     
     func application(_ app: UIApplication, open url: URL, options: [UIApplication.OpenURLOptionsKey : Any] = [:]) -> Bool {
-        print(url.absoluteString)
+        var urlString = url.absoluteString
+        urlString = String(urlString.split(separator: "/").last!)
+        print(urlString)
+        
+        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        let rootVC = storyboard.instantiateViewController(withIdentifier: "start") as! StartViewController
+        rootVC.viewer = true
+        rootVC.fullAlbumName = urlString
+        let nav = UINavigationController()
+        nav.viewControllers = [rootVC]
+        if let window = self.window {
+            window.rootViewController = nav
+        }
+
         return true
     }
 
