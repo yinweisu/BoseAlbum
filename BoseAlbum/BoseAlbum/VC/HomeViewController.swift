@@ -9,7 +9,7 @@
 import UIKit
 import AVFoundation
 
-class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource {
+class HomeViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     var user: User?
     var albums = Albums()
@@ -39,7 +39,6 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         {
             let targetController = segue.destination as! PhotoViewController
             targetController.user = self.user!
-//            print(self.curAlbumName)
             targetController.albumName = self.curAlbumName
         }
     }
@@ -56,7 +55,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         alert.addAction(UIAlertAction(title: "OK", style: .default, handler: { action in
             
             if let album_name = alert.textFields?.first?.text {
-                let baseURL = "http:0.0.0.0:5000/createAlbum"
+                let baseURL = "https://bose-album-server.herokuapp.com/createAlbum"
+//                let baseURL = "http:0.0.0.0:5000/createAlbum"
                 let parameters = ["user_id": self.user?.userID, "album_name": album_name]
                 
                 guard let url = URL(string: baseURL) else { return }
@@ -104,7 +104,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
     
     
     func retrieveAlbums() {
-        let baseURL = "http:0.0.0.0:5000/retrieveAlbums"
+        let baseURL = "https://bose-album-server.herokuapp.com/retrieveAlbums"
+//        let baseURL = "http:0.0.0.0:5000/retrieveAlbums"
         let parameters = ["user_id": user?.userID]
         
         guard let url = URL(string: baseURL) else { return }
@@ -130,15 +131,13 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
                 print(error ?? "error")
                 return
             }
-//            print(type(of: dictionary["album_count"]))
+            
             if let album_count = dictionary["album_count"] as? String {
                 self.albums.albumCounts = Int(album_count) ?? 0
-//                print(self.albums.albumCounts)
             }
             
             if let album_names = dictionary["album_names"] as? [String: Any] {
                 self.albums.albums = Array(album_names.keys).sorted()
-//                print(self.albums.albums)
             }
             
             DispatchQueue.main.async {
@@ -149,14 +148,13 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         }.resume()
     }
 
+    // Collection View
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-//        print(self.albums.albumCounts)
         return self.albums.albumCounts
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "albumCell", for: indexPath) as! AlbumCollectionViewCell
-//        print(self.albums.albums[indexPath.item])
         let str = self.albums.albums[indexPath.item]
         if let user = self.user {
             let start = str.index(str.startIndex, offsetBy: user.userID.count)
@@ -169,6 +167,8 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         cell.layer.borderWidth = 0.5
         return cell
     }
+    
+    
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let cell = collectionView.cellForItem(at: indexPath)
@@ -191,6 +191,13 @@ class HomeViewController: UIViewController, UICollectionViewDelegate, UICollecti
         cell?.layer.borderColor = UIColor.lightGray.cgColor
         cell?.layer.borderWidth = 0.5
     }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = collectionView.frame.height/4
+        let width = (collectionView.frame.width - 20)/2
+        return CGSize(width: width, height: height)
+    }
+    
     
     // MUSIC
     @IBAction func previousTapped(_ sender: Any) {

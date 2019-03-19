@@ -40,8 +40,8 @@ class LoginViewController: UIViewController {
     }
 
     @IBAction func loginPressed(_ sender: Any) {
-        //            let baseURL = "http://bose-album-server.herokuapp.com/login"
-        let baseURL = "http:0.0.0.0:5000/login"
+        let baseURL = "https://bose-album-server.herokuapp.com/login"
+//        let baseURL = "http:0.0.0.0:5000/login"
         let parameters = ["email": emailField.text, "password": passwordField.text]
         
         guard let url = URL(string: baseURL) else { return }
@@ -57,7 +57,6 @@ class LoginViewController: UIViewController {
                 do {
                     let user = try JSONDecoder().decode(User.self, from: data)
                     self.user = user
-                    print(user)
                     OperationQueue.main.addOperation {
                         self.performSegue(withIdentifier: "segueFromLoginToHome", sender: self)
                     }

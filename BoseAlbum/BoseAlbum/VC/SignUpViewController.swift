@@ -47,8 +47,8 @@ class SignUpViewController: UIViewController {
             self.errorLabel.text = ""
             self.errorLabel.isHidden = true
             
-//            let baseURL = "http://bose-album-server.herokuapp.com/signup"
-            let baseURL = "http:0.0.0.0:5000/signup"
+            let baseURL = "https://bose-album-server.herokuapp.com/signup"
+//            let baseURL = "http:0.0.0.0:5000/signup"
             let parameters = ["email": emailField.text, "password": passwordField.text]
             
             guard let url = URL(string: baseURL) else { return }
@@ -64,7 +64,6 @@ class SignUpViewController: UIViewController {
                     do {
                         let user = try JSONDecoder().decode(User.self, from: data)
                         self.user = user
-                        print(user)
                         OperationQueue.main.addOperation {
                             self.performSegue(withIdentifier: "segueFromSignToHome", sender: self)
                         }

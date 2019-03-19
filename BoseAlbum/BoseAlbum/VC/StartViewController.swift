@@ -71,7 +71,6 @@ class StartViewController: UIViewController {
                     findString = findString?.replacingOccurrences(of: ".mp3", with: "")
                     mySongs.append(findString!)
                 }
-//                print(mySongs)
             }
         } catch {
             

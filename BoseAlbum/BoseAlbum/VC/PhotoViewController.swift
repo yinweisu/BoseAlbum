@@ -11,7 +11,7 @@ import AVFoundation
 import Firebase
 import FirebaseStorage
 
-class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
+class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollectionViewDataSource, UIImagePickerControllerDelegate, UINavigationControllerDelegate, UICollectionViewDelegateFlowLayout {
 
     var user: User?
     var albumName = ""
@@ -26,10 +26,6 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     @IBOutlet weak var photoCollectionView: UICollectionView!
     @IBOutlet weak var addBarButtonItem: UIBarButtonItem!
     @IBOutlet weak var toolBar: UIToolbar!
-    
-//    override func viewWillAppear(_ animated: Bool) {
-//        super.viewWillAppear(animated)
-//    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -71,7 +67,8 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     }
     
     func retrievePhotos() {
-        let baseURL = "http:0.0.0.0:5000/retrieveImages"
+        let baseURL = "https://bose-album-server.herokuapp.com/retrieveImages"
+//        let baseURL = "http:0.0.0.0:5000/retrieveImages"
         let parameters = ["album_name": self.fullAlbumName]
         
         guard let url = URL(string: baseURL) else { return }
@@ -147,9 +144,6 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         if let oriImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             self.album.photos.append(oriImage)
-//            self.photoCollectionView.reloadData()
-//            let imageData = oriImage.jpegData(compressionQuality: 1.0)!.base64EncodedString(options: .lineLength64Characters)
-//            let data = Data((base64Encoded: imageData))
             let imageData = oriImage.jpegData(compressionQuality: 0.1)
         
             if let imageURL = info[UIImagePickerController.InfoKey.imageURL] as? URL {
@@ -166,7 +160,8 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
                     }
                     else {
                         print("Upload success")
-                        let baseURL = "http:0.0.0.0:5000/importImage"
+                        let baseURL = "https://bose-album-server.herokuapp.com/importImage"
+//                        let baseURL = "http:0.0.0.0:5000/importImage"
                         let parameters = ["url": self.user!.userID + localName!, "user_id": self.user!.userID, "album_name": self.albumName]
                         
                         guard let url = URL(string: baseURL) else { return }
@@ -189,7 +184,6 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
                             }
                             
                             if generalResponse.status == "success" {
-        //                            self.retrievePhotos()
                                 DispatchQueue.main.async {
                                     self.photoCollectionView.reloadData()
                                 }
@@ -216,10 +210,7 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
         picker.dismiss(animated: true, completion: nil)
     }
     
-    @IBAction func shareAlbum(_ sender: Any) {
-        
-    }
-    
+    // Collection View
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
         return album.photos.count
     }
@@ -227,6 +218,7 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "photoCell", for: indexPath) as! PhotoCollectionViewCell
         cell.imageView.image = self.album.photos[indexPath.item]
+        cell.deleteButtonBackgroundView.isHidden = true
         cell.delegate = self
         return cell
     }
@@ -244,6 +236,12 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
         let cell = collectionView.cellForItem(at: indexPath)
         cell?.layer.borderColor = UIColor.lightGray.cgColor
         cell?.layer.borderWidth = 0.5
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let height = collectionView.frame.height/4
+        let width = (collectionView.frame.width - 20)/2
+        return CGSize(width: width, height: height)
     }
     
     override func setEditing(_ editing: Bool, animated: Bool) {
@@ -323,7 +321,8 @@ extension PhotoViewController: PhotoCollectionViewCellDelegate {
 //            self.photoCollectionView.reloadData()
             
             // delete in database
-            let baseURL = "http:0.0.0.0:5000/deleteImage"
+            let baseURL = "https://bose-album-server.herokuapp.com/deleteImage"
+//            let baseURL = "http:0.0.0.0:5000/deleteImage"
             let parameters = ["url": storage_url, "user_id": self.user!.userID, "album_name": self.albumName]
             
             guard let url = URL(string: baseURL) else { return }
@@ -380,6 +379,7 @@ extension PhotoViewController: AlbumDelegate {
     }
 }
 
+// loading
 var vSpinner : UIView?
 
 extension UIViewController {
