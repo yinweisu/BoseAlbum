@@ -279,7 +279,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="LSg-Ub-Wbw">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="730"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="ekf-lt-Cih">
                                     <size key="itemSize" width="180" height="180"/>
@@ -295,12 +295,11 @@
                                             <rect key="frame" x="0.0" y="0.0" width="180" height="180"/>
                                             <autoresizingMask key="autoresizingMask"/>
                                             <subviews>
-                                                <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="Gmt-9V-2iA">
-                                                    <rect key="frame" x="10" y="9" width="160" height="131"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                </imageView>
                                                 <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="center" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qrG-XF-uxj">
-                                                    <rect key="frame" x="10" y="149.5" width="160" height="20.5"/>
+                                                    <rect key="frame" x="4" y="152" width="172" height="20"/>
+                                                    <constraints>
+                                                        <constraint firstAttribute="height" constant="20" id="5Hd-pv-ebt"/>
+                                                    </constraints>
                                                     <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                                     <nil key="textColor"/>
                                                     <nil key="highlightedColor"/>
@@ -309,12 +308,11 @@
                                         </view>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                         <constraints>
-                                            <constraint firstItem="qrG-XF-uxj" firstAttribute="leading" secondItem="eSu-Wm-sob" secondAttribute="leadingMargin" constant="2" id="Xdq-YU-BbS"/>
-                                            <constraint firstAttribute="bottomMargin" secondItem="qrG-XF-uxj" secondAttribute="bottom" constant="2" id="b86-xY-8CD"/>
-                                            <constraint firstAttribute="trailingMargin" secondItem="qrG-XF-uxj" secondAttribute="trailing" constant="2" id="oPD-Eb-05O"/>
+                                            <constraint firstAttribute="trailing" secondItem="qrG-XF-uxj" secondAttribute="trailing" constant="4" id="9OG-5Z-StV"/>
+                                            <constraint firstAttribute="bottom" secondItem="qrG-XF-uxj" secondAttribute="bottom" constant="8" id="TPN-p4-R44"/>
+                                            <constraint firstItem="qrG-XF-uxj" firstAttribute="leading" secondItem="eSu-Wm-sob" secondAttribute="leading" constant="4" id="lss-1Y-hyh"/>
                                         </constraints>
                                         <connections>
-                                            <outlet property="albumImageView" destination="Gmt-9V-2iA" id="ZLk-Rt-hXQ"/>
                                             <outlet property="albumLabel" destination="qrG-XF-uxj" id="CNj-yJ-EsJ"/>
                                         </connections>
                                     </collectionViewCell>
@@ -324,9 +322,11 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </collectionReusableView>
                             </collectionView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="c07-IL-qnj">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="c07-IL-qnj">
                                 <rect key="frame" x="0.0" y="818" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="q3V-FH-jnX"/>
+                                </constraints>
                                 <items>
                                     <barButtonItem systemItem="rewind" id="QSA-w8-o4K">
                                         <connections>
@@ -350,10 +350,13 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="LSg-Ub-Wbw" firstAttribute="leading" secondItem="2TS-Tw-e55" secondAttribute="leading" id="9iC-LH-lpX"/>
-                            <constraint firstItem="2TS-Tw-e55" firstAttribute="bottom" secondItem="LSg-Ub-Wbw" secondAttribute="bottom" id="MzT-Zr-TZi"/>
-                            <constraint firstItem="LSg-Ub-Wbw" firstAttribute="top" secondItem="2TS-Tw-e55" secondAttribute="top" id="j8A-VB-fD1"/>
-                            <constraint firstItem="2TS-Tw-e55" firstAttribute="trailing" secondItem="LSg-Ub-Wbw" secondAttribute="trailing" id="lDX-WA-KsY"/>
+                            <constraint firstItem="LSg-Ub-Wbw" firstAttribute="top" secondItem="2TS-Tw-e55" secondAttribute="top" id="7Ue-Fx-QMu"/>
+                            <constraint firstItem="LSg-Ub-Wbw" firstAttribute="leading" secondItem="mV4-wi-PBa" secondAttribute="leading" id="7sZ-lc-Uaj"/>
+                            <constraint firstAttribute="trailing" secondItem="LSg-Ub-Wbw" secondAttribute="trailing" id="Ici-7q-vvS"/>
+                            <constraint firstItem="c07-IL-qnj" firstAttribute="bottom" secondItem="2TS-Tw-e55" secondAttribute="bottom" id="QDX-fo-Q0k"/>
+                            <constraint firstItem="LSg-Ub-Wbw" firstAttribute="trailing" secondItem="c07-IL-qnj" secondAttribute="trailing" id="XkY-10-spo"/>
+                            <constraint firstItem="c07-IL-qnj" firstAttribute="top" secondItem="LSg-Ub-Wbw" secondAttribute="bottom" id="e4a-kD-Qzj"/>
+                            <constraint firstItem="LSg-Ub-Wbw" firstAttribute="leading" secondItem="c07-IL-qnj" secondAttribute="leading" id="i2B-BR-UM0"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="2TS-Tw-e55"/>
                     </view>
@@ -383,7 +386,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="2hr-S3-xlc">
-                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <rect key="frame" x="0.0" y="88" width="414" height="730"/>
                                 <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="vdZ-tR-oQN">
                                     <size key="itemSize" width="180" height="180"/>
@@ -417,27 +420,27 @@
                                                             </button>
                                                         </subviews>
                                                         <constraints>
-                                                            <constraint firstAttribute="trailing" secondItem="ty4-PU-2vy" secondAttribute="trailing" constant="4" id="A11-s3-Adv"/>
-                                                            <constraint firstItem="ty4-PU-2vy" firstAttribute="leading" secondItem="6eR-Yc-jML" secondAttribute="leading" constant="4" id="Okh-n8-akv"/>
-                                                            <constraint firstItem="ty4-PU-2vy" firstAttribute="top" secondItem="6eR-Yc-jML" secondAttribute="top" constant="4" id="f1n-Ks-IL1"/>
-                                                            <constraint firstAttribute="bottom" secondItem="ty4-PU-2vy" secondAttribute="bottom" constant="4" id="lxR-Ah-yiC"/>
+                                                            <constraint firstItem="ty4-PU-2vy" firstAttribute="leading" secondItem="6eR-Yc-jML" secondAttribute="leading" constant="4" id="LRG-4O-0Y6"/>
+                                                            <constraint firstItem="ty4-PU-2vy" firstAttribute="top" secondItem="6eR-Yc-jML" secondAttribute="top" constant="4" id="cdd-Rp-Nd5"/>
+                                                            <constraint firstItem="ty4-PU-2vy" firstAttribute="centerY" secondItem="6eR-Yc-jML" secondAttribute="centerY" id="u19-aw-w8C"/>
+                                                            <constraint firstItem="ty4-PU-2vy" firstAttribute="centerX" secondItem="6eR-Yc-jML" secondAttribute="centerX" id="u6D-36-6ip"/>
                                                         </constraints>
                                                     </view>
                                                     <constraints>
-                                                        <constraint firstAttribute="height" constant="20" id="0Ga-qQ-g8N"/>
-                                                        <constraint firstAttribute="width" constant="20" id="Wnx-iv-9OZ"/>
+                                                        <constraint firstAttribute="width" constant="20" id="P3z-4e-NCG"/>
+                                                        <constraint firstAttribute="height" constant="20" id="ioN-nf-h3g"/>
                                                     </constraints>
                                                     <blurEffect style="extraLight"/>
                                                 </visualEffectView>
                                             </subviews>
                                         </view>
                                         <constraints>
-                                            <constraint firstAttribute="trailing" secondItem="XsW-h2-TnZ" secondAttribute="trailing" id="0zW-ft-Y1m"/>
-                                            <constraint firstItem="XsW-h2-TnZ" firstAttribute="top" secondItem="t8O-5g-XdZ" secondAttribute="top" id="LNy-kp-iAC"/>
-                                            <constraint firstItem="A1L-pn-RGO" firstAttribute="leading" secondItem="XsW-h2-TnZ" secondAttribute="leading" constant="4" id="SBw-md-Ozg"/>
-                                            <constraint firstAttribute="bottom" secondItem="XsW-h2-TnZ" secondAttribute="bottom" id="Yx7-6h-uZ7"/>
-                                            <constraint firstItem="XsW-h2-TnZ" firstAttribute="leading" secondItem="t8O-5g-XdZ" secondAttribute="leading" id="rz8-Ab-AMv"/>
-                                            <constraint firstItem="A1L-pn-RGO" firstAttribute="top" secondItem="XsW-h2-TnZ" secondAttribute="top" constant="4" id="xaC-pr-ROG"/>
+                                            <constraint firstItem="XsW-h2-TnZ" firstAttribute="leading" secondItem="t8O-5g-XdZ" secondAttribute="leading" id="91a-xn-ZhX"/>
+                                            <constraint firstAttribute="bottom" secondItem="XsW-h2-TnZ" secondAttribute="bottom" id="9Ku-0H-wGu"/>
+                                            <constraint firstItem="XsW-h2-TnZ" firstAttribute="top" secondItem="t8O-5g-XdZ" secondAttribute="top" id="EpH-nN-xUa"/>
+                                            <constraint firstAttribute="trailing" secondItem="XsW-h2-TnZ" secondAttribute="trailing" id="VHw-bd-4s0"/>
+                                            <constraint firstItem="A1L-pn-RGO" firstAttribute="leading" secondItem="XsW-h2-TnZ" secondAttribute="leading" constant="4" id="jH5-aW-0qn"/>
+                                            <constraint firstItem="A1L-pn-RGO" firstAttribute="top" secondItem="XsW-h2-TnZ" secondAttribute="top" constant="4" id="ngH-pF-msk"/>
                                         </constraints>
                                         <connections>
                                             <outlet property="deleteButtonBackgroundView" destination="A1L-pn-RGO" id="xwu-Od-ITD"/>
@@ -450,9 +453,11 @@
                                     <autoresizingMask key="autoresizingMask"/>
                                 </collectionReusableView>
                             </collectionView>
-                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="WcI-7k-FqB">
+                            <toolbar opaque="NO" clearsContextBeforeDrawing="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="WcI-7k-FqB">
                                 <rect key="frame" x="0.0" y="818" width="414" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="44" id="JTI-0R-CTb"/>
+                                </constraints>
                                 <items>
                                     <barButtonItem systemItem="rewind" id="uD5-tb-2Km">
                                         <connections>
@@ -483,10 +488,13 @@
                         </subviews>
                         <color key="backgroundColor" cocoaTouchSystemColor="groupTableViewBackgroundColor"/>
                         <constraints>
-                            <constraint firstItem="2hr-S3-xlc" firstAttribute="leading" secondItem="cNI-6l-eMk" secondAttribute="leading" id="8Ef-bp-9pG"/>
-                            <constraint firstItem="cNI-6l-eMk" firstAttribute="bottom" secondItem="2hr-S3-xlc" secondAttribute="bottom" id="ElY-PR-8fK"/>
-                            <constraint firstItem="2hr-S3-xlc" firstAttribute="top" secondItem="cNI-6l-eMk" secondAttribute="top" id="Y4K-uA-YAT"/>
-                            <constraint firstItem="cNI-6l-eMk" firstAttribute="trailing" secondItem="2hr-S3-xlc" secondAttribute="trailing" id="u7i-3I-HqH"/>
+                            <constraint firstItem="WcI-7k-FqB" firstAttribute="bottom" secondItem="cNI-6l-eMk" secondAttribute="bottom" id="0S5-oK-d2H"/>
+                            <constraint firstItem="2hr-S3-xlc" firstAttribute="top" secondItem="cNI-6l-eMk" secondAttribute="top" id="EGV-nE-YRI"/>
+                            <constraint firstItem="2hr-S3-xlc" firstAttribute="leading" secondItem="WcI-7k-FqB" secondAttribute="leading" id="GbU-Hp-XcJ"/>
+                            <constraint firstItem="2hr-S3-xlc" firstAttribute="leading" secondItem="nv5-cc-kR8" secondAttribute="leading" id="Kkl-Jt-v7C"/>
+                            <constraint firstAttribute="trailing" secondItem="2hr-S3-xlc" secondAttribute="trailing" id="eSI-vq-Klp"/>
+                            <constraint firstItem="2hr-S3-xlc" firstAttribute="trailing" secondItem="WcI-7k-FqB" secondAttribute="trailing" id="jg3-Zp-Soa"/>
+                            <constraint firstItem="WcI-7k-FqB" firstAttribute="top" secondItem="2hr-S3-xlc" secondAttribute="bottom" id="p63-hn-pah"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="cNI-6l-eMk"/>
                     </view>

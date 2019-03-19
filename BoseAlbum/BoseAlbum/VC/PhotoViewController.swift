@@ -33,6 +33,7 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.showSpinner(onView: self.view)
         navigationItem.rightBarButtonItem = editButtonItem
         if viewer == true {
             addBarButtonItem.isEnabled = false
@@ -99,21 +100,37 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
             
             if let photo_names = dictionary["photo_names"] as? [String: Any] {
                 self.album.photoNames = Array(photo_names.keys).sorted().map {$0+".jpeg"}
-                for photoName in self.album.photoNames {
-                    let storageRef = self.storage.reference()
-                    let imageRef = storageRef.child(photoName)
-                    
-                    imageRef.getData(maxSize: 1 * 4096 * 4096, completion: { (data, error) in
-                        if let error = error {
-                            print("!!!!!!!!!")
-                            print(error)
+                if self.album.photoNames.count != 0 {
+                    for photoName in self.album.photoNames {
+                        let storageRef = self.storage.reference()
+                        let imageRef = storageRef.child(photoName)
+                        
+                        imageRef.getData(maxSize: 1 * 4096 * 4096, completion: { (data, error) in
+                            if let error = error {
+                                print("!!!!!!!!!")
+                                print(error)
+                            }
+                            else {
+                                self.album.photos.append(UIImage(data: data!)!)
+                            }
+                        })
+                    }
+                    while true {
+                        if self.album.photoNames.count != 0 && self.album.photoNames.count == self.album.photos.count {
+                            self.removeSpinner()
+                            break
                         }
-                        else {
-                            self.album.photos.append(UIImage(data: data!)!)
-                        }
-                    })
+                    }
+                }
+                else {
+                    self.removeSpinner()
                 }
             }
+            else {
+                self.removeSpinner()
+            }
+
+            
         }.resume()
     }
     
@@ -130,52 +147,61 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
         
         if let oriImage = info[UIImagePickerController.InfoKey.originalImage] as? UIImage {
             self.album.photos.append(oriImage)
-            self.photoCollectionView.reloadData()
-        }
+//            self.photoCollectionView.reloadData()
+//            let imageData = oriImage.jpegData(compressionQuality: 1.0)!.base64EncodedString(options: .lineLength64Characters)
+//            let data = Data((base64Encoded: imageData))
+            let imageData = oriImage.jpegData(compressionQuality: 0.1)
         
-        if let imageURL = info[UIImagePickerController.InfoKey.imageURL] as? URL {
-            let stringImageUrl = imageURL.absoluteString
-            let stringImageUrlArr = stringImageUrl.components(separatedBy: "/")
-            let localName = stringImageUrlArr.last
-            self.album.photoNames.append(self.user!.userID + localName!)
-            let storageRef = storage.reference()
-            let imageRef = storageRef.child(self.user!.userID + localName!)
-            imageRef.putFile(from: imageURL, metadata: nil) { metadata, error in
-                if let error = error {
-                    print(error)
-                }
-                else {
-                    print("Upload success")
-                    let baseURL = "http:0.0.0.0:5000/importImage"
-                    let parameters = ["url": self.user!.userID + localName!, "user_id": self.user!.userID, "album_name": self.albumName]
-                    
-                    guard let url = URL(string: baseURL) else { return }
-                    var request = URLRequest(url: url)
-                    request.httpMethod = "POST"
-                    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
-                    guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
-                    request.httpBody = httpBody
-                    
-                    let session = URLSession.shared
-                    session.dataTask(with: request) { (data, response, error) in
-                        guard let data = data else {
-                            print("Error: No data to decode")
-                            return
-                        }
+            if let imageURL = info[UIImagePickerController.InfoKey.imageURL] as? URL {
+                let stringImageUrl = imageURL.absoluteString
+                let stringImageUrlArr = stringImageUrl.components(separatedBy: "/")
+                let localName = stringImageUrlArr.last
+                self.album.photoNames.append(self.user!.userID + localName!)
+                let storageRef = storage.reference()
+                let imageRef = storageRef.child(self.user!.userID + localName!)
+                self.showSpinner(onView: self.view)
+                imageRef.putData(imageData!, metadata: nil) { metadata, error in
+                    if let error = error {
+                        print(error)
+                    }
+                    else {
+                        print("Upload success")
+                        let baseURL = "http:0.0.0.0:5000/importImage"
+                        let parameters = ["url": self.user!.userID + localName!, "user_id": self.user!.userID, "album_name": self.albumName]
                         
-                        guard let generalResponse = try? JSONDecoder().decode(GeneralResponse.self, from: data) else {
-                            print("Error: Couldn't decode data into GeneralResponse")
-                            return
-                        }
+                        guard let url = URL(string: baseURL) else { return }
+                        var request = URLRequest(url: url)
+                        request.httpMethod = "POST"
+                        request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+                        guard let httpBody = try? JSONSerialization.data(withJSONObject: parameters, options: []) else { return }
+                        request.httpBody = httpBody
                         
-                        if generalResponse.status == "success" {
-//                            self.retrievePhotos()
-                            print("database add success")
-                        }
-                        else {
-                            print("import photo server database error")
-                        }
-                    }.resume()
+                        let session = URLSession.shared
+                        session.dataTask(with: request) { (data, response, error) in
+                            guard let data = data else {
+                                print("Error: No data to decode")
+                                return
+                            }
+                            
+                            guard let generalResponse = try? JSONDecoder().decode(GeneralResponse.self, from: data) else {
+                                print("Error: Couldn't decode data into GeneralResponse")
+                                return
+                            }
+                            
+                            if generalResponse.status == "success" {
+        //                            self.retrievePhotos()
+                                DispatchQueue.main.async {
+                                    self.photoCollectionView.reloadData()
+                                }
+                                
+                                print("database add success")
+                            }
+                            else {
+                                print("import photo server database error")
+                            }
+                            self.removeSpinner()
+                        }.resume()
+                    }
                 }
             }
         }
@@ -281,23 +307,20 @@ class PhotoViewController: UIViewController, UICollectionViewDelegate, UICollect
         }
     }
     
-    // Share
-    @IBAction func shareTapped(_ sender: Any) {
-        
-    }
     
 }
 
 extension PhotoViewController: PhotoCollectionViewCellDelegate {
     func delete(cell: PhotoCollectionViewCell) {
         if let indexPath = photoCollectionView?.indexPath(for: cell) {
+            showSpinner(onView: self.view)
             // delete datasource
             album.photos.remove(at: indexPath.item)
             let storage_url = album.photoNames.remove(at: indexPath.item)
             
             // delete in collection view
 //            photoCollectionView?.deleteItems(at: [indexPath])
-            photoCollectionView.reloadData()
+//            self.photoCollectionView.reloadData()
             
             // delete in database
             let baseURL = "http:0.0.0.0:5000/deleteImage"
@@ -340,10 +363,13 @@ extension PhotoViewController: PhotoCollectionViewCellDelegate {
                     print(error)
                 } else {
                     // File deleted successfully
+                    DispatchQueue.main.async {
+                        self.photoCollectionView.reloadData()
+                    }
                     print("successfully delete in firestore")
                 }
             }
-            
+            removeSpinner()
         }
     }
 }
@@ -351,5 +377,31 @@ extension PhotoViewController: PhotoCollectionViewCellDelegate {
 extension PhotoViewController: AlbumDelegate {
     func updateCollectionView() {
         photoCollectionView.reloadData()
+    }
+}
+
+var vSpinner : UIView?
+
+extension UIViewController {
+    func showSpinner(onView : UIView) {
+        let spinnerView = UIView.init(frame: onView.bounds)
+        spinnerView.backgroundColor = UIColor.init(red: 0.5, green: 0.5, blue: 0.5, alpha: 0.5)
+        let ai = UIActivityIndicatorView.init(style: .whiteLarge)
+        ai.startAnimating()
+        ai.center = spinnerView.center
+        
+        DispatchQueue.main.async {
+            spinnerView.addSubview(ai)
+            onView.addSubview(spinnerView)
+        }
+        
+        vSpinner = spinnerView
+    }
+    
+    func removeSpinner() {
+        DispatchQueue.main.async {
+            vSpinner?.removeFromSuperview()
+            vSpinner = nil
+        }
     }
 }
