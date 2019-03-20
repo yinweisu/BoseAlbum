@@ -1,16 +1,23 @@
 # README
 
+### Appetize.IO
+
+https://appetize.io/app/6gdnnb32mc2am4zxd2zd9yu90m?device=iphonexs&scale=75&orientation=portrait&osVersion=12.1
+
+* Appetize.IO seems not supporting music play on the simulator. Clone this repo and build the project in Xcode to checkout music playing.
+* **The app only runs on iOS 12.1. If you encountered crash, make sure you change the system to be iOS 12.1.**
+
 ### System Design
 
 * Client Side: **Swift**
 * Server Side: **Python** deployed on **Heroku**
 * Database: **Firebase**
 * Storage: **Firebase Storage**
-* All the requirement can be done with Client and Firebase alone, but I choose to have a server to access database. Resources(i.e. battery) on cell phone is limited; therefore, I think it is a good practice to keep computation in client side as less as possible.
+* All the requirement can be done with Client and Firebase alone, but I choose to have a server to access the database. Resources(i.e. battery) on cell phone is limited; therefore, I think it is a good practice to keep computation in client side as less as possible.
 
 
 
-### Functionality Completed
+### Functionality
 
 1. Member management
 
@@ -25,13 +32,13 @@
 3. Shareable photo album
 
    * To open a shared album, simply share the url, and let the viewer open the url in safari.
-   * Viewer won't be able to add or delete photos in the album.
+   * Viewers won't be able to add or delete photos in the album.
 
 4. Background music
 
-   * automatically plays the music.
+   * Automatically plays the music.
 
-   * user can pause, play previous, play next.
+   * The user can pause, play previous, play next.
    * Currently there are only two songs, but should be able to demonstrate the functionality.
 
    * **Appetize.io simulator seems not supporting music play**. Try to clone the repo and build it to checkout the music play.
