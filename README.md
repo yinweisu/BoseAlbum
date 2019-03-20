@@ -4,8 +4,11 @@
 
 https://appetize.io/app/6gdnnb32mc2am4zxd2zd9yu90m?device=iphonexs&scale=75&orientation=portrait&osVersion=12.1
 
-* Appetize.IO seems not supporting music play on the simulator. Clone this repo and build the project in Xcode to checkout music playing.
 * **The app only runs on iOS 12.1. If you encountered crash, make sure you change the system to be iOS 12.1.**
+
+* Appetize.IO seems not supporting music play on the simulator. Clone this repo and build the project in Xcode to checkout music playing.
+
+  
 
 ### System Design
 
