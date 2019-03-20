@@ -317,10 +317,6 @@ extension PhotoViewController: PhotoCollectionViewCellDelegate {
             album.photos.remove(at: indexPath.item)
             let storage_url = album.photoNames.remove(at: indexPath.item)
             
-            // delete in collection view
-//            photoCollectionView?.deleteItems(at: [indexPath])
-//            self.photoCollectionView.reloadData()
-            
             // delete in database
             let baseURL = "https://bose-album-server.herokuapp.com/deleteImage"
 //            let baseURL = "http:0.0.0.0:5000/deleteImage"
